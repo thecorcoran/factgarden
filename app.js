@@ -286,7 +286,7 @@ function renderPlacement() {
         <button type="button" class="num-key" data-digit="0">0</button>
         <button type="button" class="num-key enter-key" data-action="enter">Enter</button>
       </div>
-      <button id="placement-skip-one" class="btn btn-secondary" style="margin-top:8px;">Skip this one</button>
+      <button id="placement-skip-one" class="btn btn-secondary btn-compact-skip">Skip this one</button>
     </main>
   `;
 

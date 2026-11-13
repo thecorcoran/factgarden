@@ -761,6 +761,13 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   color: var(--color-text);
 }
 
+.btn-compact-skip {
+  min-height: 44px;
+  padding: 8px 20px;
+  font-size: 18px;
+  margin-top: 4px;
+}
+
 /* Responsive down to 360px */
 @media (max-width: 720px) {
   .app-shell {
@@ -791,6 +798,37 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   }
   .btn-hero {
     min-width: 220px;
+    font-size: 24px;
+  }
+}
+
+/* Fit play & placement screens cleanly in 700px-tall (and shorter) windows */
+@media (max-height: 820px) {
+  .app-shell {
+    padding: var(--space-2) var(--space-3);
+  }
+  .play-topbar {
+    margin-bottom: var(--space-1);
+  }
+  .play-stage {
+    gap: 10px;
+  }
+  .question-text {
+    font-size: clamp(56px, 9vh, 80px);
+  }
+  .answer-box {
+    min-height: 72px;
+    padding: 4px 16px;
+    font-size: 54px;
+  }
+  .numpad {
+    grid-template-columns: repeat(3, 72px);
+    gap: 8px;
+    margin-top: 0;
+  }
+  .num-key {
+    width: 72px;
+    height: 64px;
     font-size: 24px;
   }
 }
