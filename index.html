@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2F7D5B" />
+  <meta name="description" content="Fact Garden — A calm, offline multiplication facts game for kids." />
+  <title>Fact Garden</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <!-- Reusable inline SVG plant symbols for the Fact Garden -->
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <defs>
+      <!-- Unseen: empty soil with faint dashed outline -->
+      <symbol id="plant-unseen" viewBox="0 0 40 40">
+        <ellipse cx="20" cy="31" rx="12" ry="4" fill="none" stroke="var(--color-muted)" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.55" />
+      </symbol>
+
+      <!-- Box 0: Seed -->
+      <symbol id="plant-0" viewBox="0 0 40 40">
+        <ellipse cx="20" cy="32" rx="11" ry="3.5" fill="var(--color-stage-seed)" opacity="0.25" />
+        <path d="M20 22 C16 25, 16 31, 20 32 C24 31, 24 25, 20 22 Z" fill="var(--color-stage-seed)" />
+      </symbol>
+
+      <!-- Box 1: Sprout -->
+      <symbol id="plant-1" viewBox="0 0 40 40">
+        <ellipse cx="20" cy="33" rx="11" ry="3.5" fill="var(--color-stage-seed)" opacity="0.25" />
+        <path d="M20 32 L20 20" stroke="var(--color-stage-sprout)" stroke-width="3" stroke-linecap="round" />
+        <path d="M20 21 C16 17, 13 18, 14 21 C15 23, 18 23, 20 21 Z" fill="var(--color-stage-sprout)" />
+      </symbol>
+
+      <!-- Box 2: Seedling (two leaves) -->
+      <symbol id="plant-2" viewBox="0 0 40 40">
+        <ellipse cx="20" cy="34" rx="11" ry="3.5" fill="var(--color-stage-seed)" opacity="0.25" />
+        <path d="M20 33 L20 17" stroke="var(--color-stage-seedling)" stroke-width="3" stroke-linecap="round" />
+        <path d="M20 21 C13 15, 9 18, 11 22 C13 24, 17 23, 20 21 Z" fill="var(--color-stage-seedling)" />
+        <path d="M20 19 C27 13, 31 16, 29 20 C27 22, 23 21, 20 19 Z" fill="var(--color-stage-seedling)" />
+      </symbol>
+
+      <!-- Box 3: Growing (taller stem, small bud) -->
+      <symbol id="plant-3" viewBox="0 0 40 40">
+        <ellipse cx="20" cy="34" rx="11" ry="3.5" fill="var(--color-stage-seed)" opacity="0.25" />
+        <path d="M20 33 L20 13" stroke="var(--color-stage-growing)" stroke-width="3" stroke-linecap="round" />
+        <path d="M20 24 C13 19, 9 22, 11 26 C13 28, 17 26, 20 24 Z" fill="var(--color-stage-growing)" />
+        <path d="M20 20 C27 15, 31 18, 29 22 C27 24, 23 22, 20 20 Z" fill="var(--color-stage-growing)" />
+        <ellipse cx="20" cy="11" rx="3.5" ry="4.5" fill="var(--color-stage-sprout)" />
+      </symbol>
+
+      <!-- Box 4: Budding (large bud, colored tip) -->
+      <symbol id="plant-4" viewBox="0 0 40 40">
+        <ellipse cx="20" cy="34" rx="11" ry="3.5" fill="var(--color-stage-seed)" opacity="0.25" />
+        <path d="M20 33 L20 14" stroke="var(--color-stage-growing)" stroke-width="3" stroke-linecap="round" />
+        <path d="M20 25 C12 20, 8 23, 11 27 C13 29, 17 27, 20 25 Z" fill="var(--color-stage-growing)" />
+        <path d="M20 22 C28 17, 32 20, 29 24 C27 26, 23 24, 20 22 Z" fill="var(--color-stage-growing)" />
+        <path d="M20 6 C14 10, 14 16, 20 16 C26 16, 26 10, 20 6 Z" fill="var(--color-stage-budding)" />
+      </symbol>
+
+      <!-- Box 5: Bloom (full flower, gold center) -->
+      <symbol id="plant-5" viewBox="0 0 40 40">
+        <ellipse cx="20" cy="35" rx="11" ry="3" fill="var(--color-stage-seed)" opacity="0.25" />
+        <path d="M20 34 L20 17" stroke="var(--color-stage-growing)" stroke-width="3" stroke-linecap="round" />
+        <path d="M20 27 C13 23, 10 26, 12 29 C14 30, 17 29, 20 27 Z" fill="var(--color-stage-growing)" />
+        <path d="M20 24 C27 20, 30 23, 28 26 C26 27, 23 26, 20 24 Z" fill="var(--color-stage-growing)" />
+        <circle cx="20" cy="8" r="4.5" fill="var(--color-stage-budding)" />
+        <circle cx="26" cy="12" r="4.5" fill="var(--color-stage-budding)" />
+        <circle cx="24" cy="18" r="4.5" fill="var(--color-stage-budding)" />
+        <circle cx="16" cy="18" r="4.5" fill="var(--color-stage-budding)" />
+        <circle cx="14" cy="12" r="4.5" fill="var(--color-stage-budding)" />
+        <circle cx="20" cy="13.5" r="4.2" fill="var(--color-stage-bloom)" />
+      </symbol>
+    </defs>
+  </svg>
+
+  <div id="app" class="app-shell"></div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
